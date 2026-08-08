@@ -39,3 +39,15 @@ jobs_list = [
         "rate": 20,
         "applied": False
     },
+    {
+        "id": 2,
+        "subject": "Web Development (HTML/CSS/JS)",
+        "level": "College",
+        "mode": "In-Person",
+        "location": "Bashundhara R/A, Dhaka",
+        "frequency": "2 days/week",
+        "posted": "1 day ago",
+        "description": "Need a tutor to teach front-end web development basics and responsive design.",
+        "rate": 20,
+        "applied": False
+    },
