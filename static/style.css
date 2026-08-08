@@ -169,3 +169,22 @@ body {
   color: #809083;
   cursor: not-allowed;
 }
+
+.app-row {
+  display: flex;
+  justify-content: space-between;
+  background: var(--bg-card);
+  padding: 12px 15px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.stamp.pending { color: var(--chalk-yellow); }
+.stamp.accepted { color: var(--chalk-green); }
+
+.footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
