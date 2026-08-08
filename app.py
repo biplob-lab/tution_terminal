@@ -99,3 +99,32 @@ def handle_applications():
         return jsonify({"success": True})
     
     return jsonify(applications_list)
+
+@app.route('/api/stats', methods=['GET'])
+def get_stats():
+    total_apps = len(applications_list)
+    accepted_apps = sum(1 for a in applications_list if a['status'] == 'accepted')
+    pending_apps = sum(1 for a in applications_list if a['status'] == 'pending')
+    rejected_apps = sum(1 for a in applications_list if a['status'] == 'rejected')
+    
+    acceptance_rate = round((accepted_apps / total_apps * 100), 1) if total_apps > 0 else 0
+
+    return jsonify({
+        "open_jobs": len(jobs_list),
+        "total_applications": total_apps,
+        "acceptance_rate": acceptance_rate,
+        "status_counts": {
+            "pending": pending_apps,
+            "accepted": accepted_apps,
+            "rejected": rejected_apps
+        },
+        "applications_timeline": [
+            {"date": "2026-08-01", "count": 1},
+            {"date": "2026-08-03", "count": 2},
+            {"date": "2026-08-06", "count": 4},
+            {"date": "2026-08-09", "count": total_apps}
+        ]
+    })
+
+if __name__ == '__main__':
+    app.run(debug=True, port=5000)
