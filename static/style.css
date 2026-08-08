@@ -41,3 +41,14 @@ body {
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 15px;
 }
+
+.logo {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--chalk-mint);
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 10px;
+}
