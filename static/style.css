@@ -124,3 +124,25 @@ body {
   position: relative;
   height: 250px;
 }
+
+.grid-jobs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.job-card {
+  background: var(--bg-card);
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.job-card .tag {
+  background: #2b3d30;
+  color: var(--chalk-mint);
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 3px;
+}
