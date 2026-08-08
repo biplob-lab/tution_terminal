@@ -67,3 +67,23 @@ body {
   color: var(--chalk-mint);
   border-color: var(--chalk-mint);
 }
+.terminal-banner {
+  background: #19241d;
+  padding: 10px 15px;
+  margin: 15px 0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: var(--chalk-yellow);
+}
+
+.panel-view {
+  display: none;
+}
+
+.panel-view.active {
+  display: block;
+}
+
+.welcome-card {
+  margin-bottom: 20px;
+}
