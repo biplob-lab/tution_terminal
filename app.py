@@ -51,3 +51,16 @@ jobs_list = [
         "rate": 20,
         "applied": False
     },
+    {
+        "id": 3,
+        "subject": "Higher Mathematics",
+        "level": "HSC",
+        "mode": "In-Person",
+        "location": "Uttara, Dhaka",
+        "frequency": "4 days/week",
+        "posted": "3 days ago",
+        "description": "HSC Examinee needs intensive guidance for Higher Mathematics syllabus.",
+        "rate": 18,
+        "applied": False
+    }
+]
