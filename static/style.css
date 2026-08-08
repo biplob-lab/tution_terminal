@@ -52,3 +52,18 @@ body {
   display: flex;
   gap: 10px;
 }
+.tab-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-dim);
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-btn.active, .tab-btn:hover {
+  background: var(--bg-card);
+  color: var(--chalk-mint);
+  border-color: var(--chalk-mint);
+}
