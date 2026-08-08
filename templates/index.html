@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tuition Terminal — Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="terminal-container">
+    <!-- Navigation / Header -->
+    <header class="navbar">
+      <div class="logo">
+        <span class="prompt-symbol">&gt;_</span> Tuition Terminal
+      </div>
+      <nav class="nav-tabs">
+        <button class="tab-btn active" data-view="overview">Overview</button>
+        <button class="tab-btn" data-view="jobs">Job Board</button>
+        <button class="tab-btn" data-view="applications">Applications</button>
+        <button class="tab-btn" data-view="profile">Profile</button>
+      </nav>
+      <div class="user-badge">
+        <span id="tutorFirstName">Tutor</span> <span class="online-indicator">●</span>
+      </div>
+    </header>
