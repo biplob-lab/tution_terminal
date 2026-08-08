@@ -64,3 +64,38 @@ jobs_list = [
         "applied": False
     }
 ]
+applications_list = []
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/api/tutor', methods=['GET'])
+def get_tutor():
+    return jsonify(tutor_profile)
+
+@app.route('/api/jobs', methods=['GET'])
+def get_jobs():
+    return jsonify(jobs_list)
+
+@app.route('/api/applications', methods=['GET', 'POST'])
+def handle_applications():
+    if request.method == 'POST':
+        data = request.get_json()
+        job_id = data.get('job_id')
+        
+        for job in jobs_list:
+            if job['id'] == job_id and not job['applied']:
+                job['applied'] = True
+                applications_list.append({
+                    "id": len(applications_list) + 1,
+                    "subject": job['subject'],
+                    "level": job['level'],
+                    "rate": job['rate'],
+                    "applied": "Just now",
+                    "status": "pending"
+                })
+                break
+        return jsonify({"success": True})
+    
+    return jsonify(applications_list)
