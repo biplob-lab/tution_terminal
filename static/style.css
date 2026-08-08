@@ -106,3 +106,21 @@ body {
   font-weight: 700;
   color: var(--chalk-mint);
 }
+
+.grid-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.chart-card {
+  background: var(--bg-card);
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+}
+
+.chart-wrapper {
+  position: relative;
+  height: 250px;
+}
