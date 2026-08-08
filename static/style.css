@@ -24,3 +24,13 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.terminal-container {
+  width: 100%;
+  max-width: 1100px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: rgba(18, 24, 20, 0.95);
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
