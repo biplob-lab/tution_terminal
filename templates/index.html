@@ -1,82 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tuition Terminal — Dashboard</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuition Terminal - Be Better | Learn Better</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="terminal-container">
-    <header class="navbar">
-      <div class="logo">
-        <span class="prompt-symbol">&gt;_</span> Tuition Terminal
-      </div>
-      <nav class="nav-tabs">
-        <button class="tab-btn active" data-view="overview">Overview</button>
-        <button class="tab-btn" data-view="jobs">Job Board</button>
-        <button class="tab-btn" data-view="applications">Applications</button>
-        <button class="tab-btn" data-view="profile">Profile</button>
-      </nav>
-      <div class="user-badge">
-        <span id="tutorFirstName">Tutor</span> <span class="online-indicator">●</span>
-      </div>
+
+    <!-- Header Navigation -->
+    <header class="top-nav">
+        <div class="nav-brand">
+            <div class="logo">Tuition<span>Terminal</span></div>
+            <small class="tagline">Be Better | Learn Better</small>
+        </div>
+        
+        <div class="nav-right">
+            <!-- Unauthenticated Buttons -->
+            <div id="auth-actions-logged-out" style="display: flex; gap: 10px;">
+                <button class="auth-btn btn-signin-nav" onclick="openAuthModal('signin')">Sign In</button>
+                <button class="auth-btn btn-signup-nav" onclick="openAuthModal('signup')">Sign Up</button>
+            </div>
+
+            <!-- Authenticated User Profile -->
+            <div id="auth-actions-logged-in" style="display: none; align-items: center; gap: 15px;">
+                <div class="user-dropdown" onclick="toggleUserDropdown()">
+                    <img src="https://ui-avatars.com/api/?name=User&background=8bc34a&color=fff" id="nav-avatar" class="avatar-head" alt="Avatar">
+                    <span id="nav-username">User Name</span> ▾
+                    
+                    <div class="dropdown-menu" id="user-menu">
+                        <div onclick="navigate('my-profile')">👤 Profile</div>
+                        <div onclick="handleLogout()" style="color: #ef4444;">🚪 Log Out</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <div class="terminal-banner">
-      <span id="termLine" class="typing-text">Initializing session...</span>
+    <!-- Main Workspace -->
+    <div class="wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="app-sidebar">
+            <div class="profile-card-side">
+                <div class="avatar-box">
+                    <img src="https://ui-avatars.com/api/?name=User&background=2c3e50&color=fff" id="side-avatar" alt="Profile">
+                    <span class="badge-icon">🎖️</span>
+                </div>
+                <h3 id="side-name">User Name</h3>
+                <p id="side-id-label" class="id-tag">ID : ------</p>
+            </div>
+
+            <!-- Menu List -->
+            <ul class="menu-list" id="menu-items">
+                <!-- Dynamically Rendered -->
+            </ul>
+        </aside>
+
+        <!-- Dynamic Main Content -->
+        <main class="content-area" id="main-content">
+            <!-- Dynamic JavaScript Views Render Here -->
+        </main>
     </div>
 
-    <main class="main-content">
-      <section id="view-overview" class="panel-view active">
-        <div class="welcome-card">
-          <h1>Welcome back, <span id="tutorHeadline">Tutor</span></h1>
-          <p>Track your student matches, job responses, and teaching performance in real-time.</p>
-        </div>
+    <!-- EXACT LOGIN / SIGNUP MODAL matching Screenshot -->
+    <div class="auth-modal-overlay" id="auth-modal">
+        <div class="auth-card">
+            <button class="close-modal" onclick="closeAuthModal()">✕</button>
+            
+            <h2 class="auth-header-title"><span class="green-text">Welcome</span> Back</h2>
+            <p class="auth-sub-title">Sign in to Continue your Journey.</p>
 
-        <div id="statGrid" class="grid-stats"></div>
+            <!-- Parent vs Tutor Selection Cards -->
+            <div class="role-selector-grid">
+                <div class="role-card" id="role-parent" onclick="selectLoginRole('guardian')">
+                    <div class="role-avatar-wrapper">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Parent" alt="Parents">
+                    </div>
+                    <h4>Parents</h4>
+                    <p>Are you looking for a tutor? Tap it!!!</p>
+                </div>
 
-        <div class="grid-charts">
-          <div class="chart-card">
-            <h3>Application Status Distribution</h3>
-            <div class="chart-wrapper">
-              <canvas id="statusChart"></canvas>
+                <div class="role-card active" id="role-tutor" onclick="selectLoginRole('tutor')">
+                    <div class="role-avatar-wrapper">
+                        <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Tutor" alt="Tutor">
+                    </div>
+                    <h4>Tutor</h4>
+                    <p>Are you looking for a tuition jobs? Tap it!!!</p>
+                </div>
             </div>
-          </div>
-          <div class="chart-card">
-            <h3>Applications Growth Timeline</h3>
-            <div class="chart-wrapper">
-              <canvas id="timelineChart"></canvas>
+
+            <!-- Form Container -->
+            <div class="auth-form-box">
+                <!-- Registration Specific Inputs -->
+                <div id="register-fields" style="display: none;">
+                    <div class="input-group">
+                        <input type="text" id="auth-name" placeholder="Full Name*">
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="auth-email" placeholder="Email Address*">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <input type="text" id="auth-login-id" placeholder="Phone/Email*">
+                </div>
+
+                <div class="input-group password-group">
+                    <input type="password" id="auth-password" placeholder="Password*">
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">👁️</span>
+                </div>
+
+                <div class="forgot-pass-wrapper" id="forgot-pass-link">
+                    <a href="#" onclick="alert('Password reset link sent to your phone/email!')">Forget Password?</a>
+                </div>
+
+                <!-- Action Button -->
+                <button class="btn-signin-full" id="auth-submit-btn" onclick="submitAuthForm()">Sign In</button>
+
+                <div class="auth-divider">
+                    <span>Or</span>
+                </div>
+
+                <button class="btn-signup-full" id="auth-switch-btn" onclick="toggleAuthMode()">Sign Up</button>
             </div>
-          </div>
         </div>
-      </section>
+    </div>
 
-      <section id="view-jobs" class="panel-view">
-        <h2>Available Tuition Jobs</h2>
-        <div id="jobGrid" class="grid-jobs"></div>
-      </section>
-
-      <section id="view-applications" class="panel-view">
-        <h2>Your Job Applications</h2>
-        <div id="appList" class="app-list"></div>
-      </section>
-
-      <section id="view-profile" class="panel-view">
-        <div id="profileCard" class="profile-container"></div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <span>tuition-terminal v1.0.0 — status: online</span>
-    </footer>
-  </div>
-
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
-      
-
-
